@@ -2,10 +2,10 @@ import { ref, computed, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 import AuthAPI from '@/api/AuthAPI'
-import type { LoginData } from '@/interfaces/login.data.interface'
-import type { User } from '@/interfaces/user.interface'
+import type { LoginData } from '@/modules/auth/interfaces/login.data.interface'
+import type { User } from '@/modules/common/interfaces/user.interface'
 import UserAPI from '@/api/UserAPI'
-import type { Sheet } from '@/interfaces/sheet.interface'
+import type { Sheet } from '@/modules/common/interfaces/sheet.interface'
 
 export const useUserStore = defineStore('user', () => {
   const router = useRouter()
@@ -28,15 +28,10 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function getUserSheets() {
-    console.log('Getting user sheets')
     if (!user.value) {
-      console.log('No tengo usuario')
       return
     }
-    console.log(user.value)
     await UserAPI.getUserSheets(user.value?._id).then(({ data }) => {
-      console.log('Entro en el then')
-      console.log(data)
       userSheets.value = data
     })
   }

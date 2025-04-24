@@ -9,38 +9,38 @@ const router = createRouter({
       path: '/',
       name: 'home',
       meta: { requiresAuth: true },
-      component: () => import('@/views/HomeView.vue'),
+      component: () => import('@/modules/home/views/HomeView.vue'),
     },
     {
       path: '/:id',
       redirect: { name: 'fixed' },
       meta: { requiresAuth: true },
-      component: () => import('@/layouts/AppLayout.vue'),
+      component: () => import('@/modules/expenses/layouts/AppLayout.vue'),
       children: [
         {
           path: 'fixed',
           name: 'fixed',
-          component: () => import('@/views/FixedExpensesView.vue'),
+          component: () => import('@/modules/expenses/views/FixedExpensesView.vue'),
         },
         {
           path: 'variable',
           name: 'variable',
-          component: () => import('@/views/VariableExpensesView.vue'),
+          component: () => import('@/modules/expenses/views/VariableExpensesView.vue'),
         },
         {
           path: 'cash',
           name: 'cash',
-          component: () => import('@/views/CashExpensesView.vue'),
+          component: () => import('@/modules/expenses/views/CashExpensesView.vue'),
         },
         {
           path: 'income',
           name: 'income',
-          component: () => import('@/views/IncomeView.vue'),
+          component: () => import('@/modules/expenses/views/IncomeView.vue'),
         },
         {
           path: 'summary',
           name: 'summary',
-          component: () => import('@/views/SummaryView.vue'),
+          component: () => import('@/modules/expenses/views/SummaryView.vue'),
         },
       ],
     },
@@ -48,17 +48,17 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       redirect: { name: 'login' },
-      component: () => import('@/layouts/AuthLayout.vue'),
+      component: () => import('@/modules/auth/layouts/AuthLayout.vue'),
       children: [
         {
           path: 'login',
           name: 'login',
-          component: () => import('@/views/LoginView.vue'),
+          component: () => import('@/modules/auth/views/LoginView.vue'),
         },
         {
           path: 'register',
           name: 'register',
-          component: () => import('@/views/RegisterView.vue'),
+          component: () => import('@/modules/auth/views/RegisterView.vue'),
         },
       ],
     },
@@ -70,10 +70,9 @@ router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
   if (requiresAuth) {
     try {
+      await AuthAPI.auth()
       if (!userStore.user) {
         await userStore.initUser()
-      } else {
-        await AuthAPI.auth()
       }
       next()
     } catch (error) {

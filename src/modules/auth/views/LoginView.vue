@@ -25,7 +25,6 @@ const onLogin = async () => {
         id="email"
         name="email"
         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-        autocomplete="off"
       />
     </div>
     <!-- Password Input -->
@@ -37,14 +36,13 @@ const onLogin = async () => {
         id="password"
         name="password"
         class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-        autocomplete="off"
       />
     </div>
     <!-- Actions -->
     <div class="flex flex-col gap-4">
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
+        class="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full"
       >
         Iniciar sesión
       </button>

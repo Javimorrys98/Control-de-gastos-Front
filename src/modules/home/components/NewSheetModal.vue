@@ -22,7 +22,7 @@ const onCreateSheet = () => {
 
 <template>
   <button
-    class="btn fixed bottom-6 right-6 w-10 h-10 bg-orange-300 rounded-full flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer border-0"
+    class="btn fixed bottom-6 right-6 w-10 h-10 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center transition-colors cursor-pointer border-0"
     onclick="new_sheet_modal.showModal()"
   >
     <svg
@@ -30,8 +30,8 @@ const onCreateSheet = () => {
       height="30px"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
-      fill="#000000"
-      stroke="#000000"
+      fill="#ffffff"
+      stroke="#ffffff"
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
       <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -42,10 +42,10 @@ const onCreateSheet = () => {
             <g>
               <line
                 fill="none"
-                stroke="#000000"
+                stroke="#ffffff"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
+                stroke-width="3"
                 x1="12"
                 x2="12"
                 y1="19"
@@ -53,10 +53,10 @@ const onCreateSheet = () => {
               ></line>
               <line
                 fill="none"
-                stroke="#000000"
+                stroke="#ffffff"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                stroke-width="2"
+                stroke-width="3"
                 x1="5"
                 x2="19"
                 y1="12"
@@ -71,25 +71,34 @@ const onCreateSheet = () => {
   <dialog id="new_sheet_modal" class="modal">
     <div class="modal-box">
       <form method="dialog">
-        <button class="btn-sm btn-circle btn-ghost absolute right-2 top-2 cursor-pointer text-xl">
+        <button
+          @click="sheetName = ''"
+          class="btn-sm btn-circle btn-ghost absolute right-4 top-3 cursor-pointer text-xl"
+        >
           ✕
         </button>
       </form>
       <h3 class="text-xl font-bold">Crear nueva hoja de gastos</h3>
       <label>Nombre de la hoja de gastos:</label>
-      <input type="text" class="input h-8 mt-3" v-model="sheetName" />
+      <input
+        type="text"
+        class="input h-8 mt-3 w-full"
+        v-model="sheetName"
+        @keypress.enter="onCreateSheet"
+      />
 
       <div class="flex justify-end mt-4 gap-2">
         <form method="dialog">
           <!-- if there is a button in form, it will close the modal -->
           <button
-            class="card bg-red-600 shadow-sm flex items-center justify-center py-1 px-3 rounded-lg w-auto cursor-pointer"
+            class="card bg-red-500 hover:bg-red-800 transition-colors shadow-sm flex items-center justify-center py-1 px-3 rounded-lg w-auto cursor-pointer text-white font-semibold"
+            @click="sheetName = ''"
           >
             Cancelar
           </button>
         </form>
         <button
-          class="card bg-orange-300 shadow-sm flex items-center justify-center py-1 px-3 rounded-lg w-auto cursor-pointer"
+          class="card bg-blue-500 hover:bg-blue-600 transition-colors shadow-sm flex items-center justify-center py-1 px-3 rounded-lg w-auto cursor-pointer text-white font-semibold"
           @click="onCreateSheet"
         >
           Crear

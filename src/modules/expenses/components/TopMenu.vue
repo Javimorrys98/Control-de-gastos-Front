@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+import { useUserStore } from '@/stores/user.store'
+
+const userStore = useUserStore()
+</script>
+
 <template>
   <div class="flex items-center justify-between p-5 bg-orange-200 min-h-[10vh]">
     <h2 class="text-3xl font-bold text-center">Presupuesto</h2>
@@ -12,7 +18,7 @@
         </div>
       </nav>
       <RouterLink :to="{ name: 'home' }"> Atrás </RouterLink>
-      <RouterLink :to="{ name: 'login' }"> Cerrar sesión </RouterLink>
+      <button @click="userStore.logout()">Cerrar sesión</button>
     </div>
   </div>
 </template>

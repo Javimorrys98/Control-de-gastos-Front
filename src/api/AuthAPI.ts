@@ -1,5 +1,5 @@
-import type { LoginData } from '@/interfaces/login.data.interface'
-import type { RegisterData } from '@/interfaces/register.data.interface'
+import type { LoginData } from '@/modules/auth/interfaces/login.data.interface'
+import type { RegisterData } from '@/modules/auth/interfaces/register.data.interface'
 import api from '@/lib/axios'
 
 export default {
