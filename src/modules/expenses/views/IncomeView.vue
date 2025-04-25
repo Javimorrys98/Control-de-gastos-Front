@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import AddButton from '@/modules/common/components/AddButton.vue'
+import { ref } from 'vue'
 
 const incomes = ref([
   {
     concept: 'Nomina Javi',
-    amount: 1600.00,
+    amount: 1600.0,
   },
   {
     concept: 'Nomina Elia',
-    amount: 5000.00,
+    amount: 5000.0,
   },
 ])
 </script>
@@ -20,7 +21,7 @@ const incomes = ref([
       <div class="overflow-x-auto overflow-y-auto w-full">
         <table class="table">
           <!-- head -->
-          <thead class="bg-indigo-400 sticky top-0 z-10">
+          <thead class="bg-blue-500 sticky top-0 z-10">
             <tr>
               <th>Concepto</th>
               <th>Importe</th>
@@ -35,15 +36,21 @@ const incomes = ref([
               <td>E B</td>
             </tr>
           </tbody>
-          <tfoot class="bg-indigo-400 sticky bottom-0 z-10">
+          <tfoot class="bg-blue-500 sticky bottom-0 z-10">
             <tr>
               <td>Total:</td>
-              <td>{{ incomes.map(expense => expense.amount).reduce((acc, amount) => acc + amount, 0) }} €</td>
+              <td>
+                {{
+                  incomes.map((expense) => expense.amount).reduce((acc, amount) => acc + amount, 0)
+                }}
+                €
+              </td>
               <td></td>
             </tr>
           </tfoot>
         </table>
       </div>
+      <AddButton />
     </main>
   </div>
 </template>

@@ -1,24 +1,66 @@
 <script lang="ts" setup>
-import { useUserStore } from '@/stores/user.store'
+import LogoutIcon from '@/modules/common/icons/LogoutIcon.vue'
 
-const userStore = useUserStore()
+defineEmits(['logout'])
 </script>
 
 <template>
-  <div class="flex items-center justify-between p-5 bg-orange-200 min-h-[10vh]">
-    <h2 class="text-3xl font-bold text-center">Presupuesto</h2>
-    <div class="flex items-center space-x-4">
-      <nav class="flex ml-auto space-x-4 items-center sm:space-x-6">
-        <div class="space-x-4">
-          <RouterLink :to="{ name: 'fixed' }"> Gastos fijos </RouterLink>
-          <RouterLink :to="{ name: 'variable' }"> Gastos variables </RouterLink>
-          <RouterLink :to="{ name: 'cash' }"> Gastos efectivo </RouterLink>
-          <RouterLink :to="{ name: 'income' }"> Ingresos </RouterLink>
-          <RouterLink :to="{ name: 'summary' }"> Resumen </RouterLink>
-        </div>
+  <div class="flex items-center justify-between bg-gray-200 h-[5vh]">
+    <h2 class="text-4xl font-bold text-center ml-5">Presupuesto</h2>
+    <div class="flex items-center h-full">
+      <nav class="flex ml-auto items-center h-full font-semibold">
+        <RouterLink
+          :to="{ name: 'fixed' }"
+          class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
+          :class="{
+            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'fixed',
+          }"
+        >
+          Gastos fijos
+        </RouterLink>
+        <RouterLink
+          :to="{ name: 'variable' }"
+          class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
+          :class="{
+            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'variable',
+          }"
+        >
+          Gastos variables
+        </RouterLink>
+        <RouterLink
+          :to="{ name: 'cash' }"
+          class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
+          :class="{
+            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'cash',
+          }"
+        >
+          Gastos efectivo
+        </RouterLink>
+        <RouterLink
+          :to="{ name: 'income' }"
+          class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
+          :class="{
+            'font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'income',
+          }"
+        >
+          Ingresos
+        </RouterLink>
+        <RouterLink
+          :to="{ name: 'summary' }"
+          class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
+          :class="{
+            'font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'summary',
+          }"
+        >
+          Resumen
+        </RouterLink>
+        <button
+          class="cursor-pointer bg-transparent hover:bg-gray-300 transition-colors h-full w-15 flex items-center justify-center"
+          @click="$emit('logout')"
+        >
+          <LogoutIcon />
+        </button>
       </nav>
-      <RouterLink :to="{ name: 'home' }"> Atrás </RouterLink>
-      <button @click="userStore.logout()">Cerrar sesión</button>
     </div>
   </div>
 </template>

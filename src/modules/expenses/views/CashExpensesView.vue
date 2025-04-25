@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import AddButton from '@/modules/common/components/AddButton.vue'
+import { ref } from 'vue'
 
 const cashExpenses = ref([
   {
     date: '01/01/2000',
     concept: 'Mariwana',
     classification: 'De la bahia',
-    amount: 50.00,
+    amount: 50.0,
     payer: 'Elia',
   },
   // {
@@ -158,7 +159,7 @@ const cashExpenses = ref([
   // }
 ])
 
-const uniquePayers = ref(Array.from(new Set(cashExpenses.value.map(expense => expense.payer))))
+const uniquePayers = ref(Array.from(new Set(cashExpenses.value.map((expense) => expense.payer))))
 </script>
 
 <template>
@@ -168,7 +169,7 @@ const uniquePayers = ref(Array.from(new Set(cashExpenses.value.map(expense => ex
       <div class="overflow-x-auto overflow-y-auto w-3/4 mr-3">
         <table class="table">
           <!-- head -->
-          <thead class="bg-indigo-400 sticky top-0 z-10">
+          <thead class="bg-blue-500 sticky top-0 z-10">
             <tr>
               <th>Fecha</th>
               <th>Concepto</th>
@@ -189,13 +190,20 @@ const uniquePayers = ref(Array.from(new Set(cashExpenses.value.map(expense => ex
               <td>E B</td>
             </tr>
           </tbody>
-          <tfoot class="bg-indigo-400 sticky bottom-0 z-10">
+          <tfoot class="bg-blue-500 sticky bottom-0 z-10">
             <tr>
               <td>Total:</td>
               <td></td>
               <td></td>
               <td></td>
-              <td>{{cashExpenses.map(expense => expense.amount).reduce((acc, amount) => acc + amount, 0)}} €</td>
+              <td>
+                {{
+                  cashExpenses
+                    .map((expense) => expense.amount)
+                    .reduce((acc, amount) => acc + amount, 0)
+                }}
+                €
+              </td>
               <td></td>
             </tr>
           </tfoot>
@@ -206,12 +214,20 @@ const uniquePayers = ref(Array.from(new Set(cashExpenses.value.map(expense => ex
           <tbody>
             <tr v-for="payer in uniquePayers" class="hover:bg-base-300">
               <td>Total fijo pagado {{ payer }}</td>
-              <td>{{cashExpenses.filter(expense => expense.payer === payer).map(expense => expense.amount).reduce((acc,
-                amount) => acc + amount, 0) }} €</td>
+              <td>
+                {{
+                  cashExpenses
+                    .filter((expense) => expense.payer === payer)
+                    .map((expense) => expense.amount)
+                    .reduce((acc, amount) => acc + amount, 0)
+                }}
+                €
+              </td>
             </tr>
           </tbody>
         </table>
       </aside>
+      <AddButton />
     </main>
   </div>
 </template>

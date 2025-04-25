@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import LogoutIcon from '@/modules/common/icons/LogoutIcon.vue'
 interface Props {
   userName: string | undefined
 }
@@ -8,14 +9,17 @@ defineEmits(['logout'])
 </script>
 
 <template>
-  <div class="flex items-center justify-end w-full gap-4">
-    <p>Bienvenid@ {{ userName }}</p>
-    <button
-      class="card bg-red-500 hover:bg-red-800 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
-      @click="$emit('logout')"
-    >
-      Cerrar sesión
-    </button>
+  <div class="flex items-center justify-between w-full bg-gray-200 px-5">
+    <h1 class="text-5xl font-bold text-center">Inicio</h1>
+    <div class="flex items-center justify-end w-full gap-4">
+      <p>Bienvenid@ {{ userName }}</p>
+      <button
+        class="cursor-pointer rounded-full bg-transparent hover:bg-gray-300 p-3 transition-colors"
+        @click="$emit('logout')"
+      >
+        <LogoutIcon />
+      </button>
+    </div>
   </div>
 </template>
 

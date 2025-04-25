@@ -1,28 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-
 interface Props {
   showModal: boolean
+  title: string
+  message: string
 }
+
 defineProps<Props>()
-
-const sheetName = ref('')
-
-const emits = defineEmits(['createSheet', 'cancel'])
-
-const onCreateSheet = () => {
-  if (sheetName.value.trim() === '') {
-    return
-  }
-
-  emits('createSheet', sheetName.value)
-  sheetName.value = ''
-}
-
-const onCancel = () => {
-  sheetName.value = ''
-  emits('cancel')
-}
+const emits = defineEmits(['confirm', 'cancel'])
 </script>
 
 <template>
@@ -33,38 +17,33 @@ const onCancel = () => {
     <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6 relative">
       <!-- Botón de cerrar -->
       <button
-        @click="onCancel"
+        @click="$emit('cancel')"
         class="absolute top-2 right-4 text-gray-500 hover:text-black text-3xl font-bold cursor-pointer"
       >
         &times;
       </button>
 
       <!-- Título -->
-      <h2 class="text-2xl font-bold mb-1">Crear nueva hoja de gastos</h2>
+      <h2 class="text-2xl font-bold mb-1">{{ title }}</h2>
+      <p class="text-md text-gray-700mb-4">{{ message }}</p>
 
-      <!-- Input para el nombre de la hoja -->
-      <label class="text-md text-gray-700 mb-2">Nombre de la hoja de gastos:</label>
-      <input
-        type="text"
-        class="input h-8 mt-3 w-full"
-        v-model="sheetName"
-        @keypress.enter="onCreateSheet"
-      />
-
+      <!-- Botones -->
       <div class="flex justify-end gap-3 mt-6">
         <button
-          @click="onCancel"
+          @click="$emit('cancel')"
           class="card bg-red-500 hover:bg-red-800 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
         >
           Cancelar
         </button>
         <button
-          @click="onCreateSheet"
+          @click="$emit('confirm')"
           class="card bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
         >
-          Crear
+          Eliminar
         </button>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped></style>
