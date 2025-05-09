@@ -4,7 +4,7 @@ import NewSheetModal from '@/modules/home/components/NewSheetModal.vue'
 import { useUserStore } from '@/stores/user.store'
 import HomeTopBar from '../components/HomeTopBar.vue'
 import SheetCard from '../components/SheetCard.vue'
-import ConfirmationModal from '../components/ConfirmationModal.vue'
+import ConfirmationModal from '../../common/components/ConfirmationModal.vue'
 import { ref } from 'vue'
 import PlusIcon from '@/modules/common/icons/PlusIcon.vue'
 import AddButton from '@/modules/common/components/AddButton.vue'
@@ -33,14 +33,9 @@ const removeSheet = async () => {
   showModalConfirmation.value = false
   selectedSheetId.value = ''
 }
-
-const onLogout = () => {
-  userStore.logout()
-}
 </script>
 
 <template>
-  <HomeTopBar class="min-h-[5vh]" :userName="userStore.user?.name" @logout="onLogout" />
   <div class="flex flex-col items-center p-4">
     <h1 class="text-4xl font-bold text-center">Hojas de gastos</h1>
     <div v-if="userStore.userSheets.length" class="w-full mt-4">

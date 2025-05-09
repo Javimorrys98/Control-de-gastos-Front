@@ -7,9 +7,27 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: '',
+      redirect: { name: 'home' },
       meta: { requiresAuth: true },
-      component: () => import('@/modules/home/views/HomeView.vue'),
+      component: () => import('@/modules/home/layouts/HomeLayout.vue'),
+      children: [
+        {
+          path: '',
+          name: 'home',
+          component: () => import('@/modules/home/views/HomeView.vue'),
+        },
+        {
+          path: '/categories',
+          name: 'categories',
+          component: () => import('@/modules/home/views/CategoriesView.vue'),
+        },
+        {
+          path: '/payers',
+          name: 'payers',
+          component: () => import('@/modules/home/views/PayersView.vue'),
+        },
+      ],
     },
     {
       path: '/:id',

@@ -24,7 +24,7 @@ const handleClick = (sheetId: string) => {
     <RouterLink :to="`/${sheet._id}`" class="h-10 w-20"></RouterLink>
     <RouterLink
       :to="`/${sheet._id}`"
-      class="text-xl font-bold text-white w-full text-center truncate overflow-hidden whitespace-nowrap"
+      class="flex items-center justify-center text-xl font-bold text-white w-full text-center truncate overflow-hidden whitespace-nowrap h-full"
     >
       {{ sheet.name }}
     </RouterLink>
