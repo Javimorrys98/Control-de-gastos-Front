@@ -7,7 +7,7 @@ const userStore = useUserStore()
 </script>
 
 <template>
-  <aside class="bg-gray-200 w-60 min-h-[95vh] px-5">
+  <aside class="bg-gray-200 w-60 min-h-[93vh] px-5">
     <div class="flex items-center gap-2">
       <h3 class="text-lg font-bold">Hojas de gastos</h3>
       <RouterLink :to="{ name: 'home' }">

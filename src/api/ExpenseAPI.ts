@@ -7,4 +7,10 @@ export default {
   deleteExpense(sheetId: string, expenseId: string) {
     return api.delete(`/expenses/${sheetId}/${expenseId}`)
   },
+  createIncome(data: object) {
+    return api.post('/incomes', data)
+  },
+  deleteIncome(sheetId: string, incomeId: string) {
+    return api.delete(`/incomes/${sheetId}/${incomeId}`)
+  },
 }

@@ -1,35 +1,19 @@
 <script lang="ts" setup>
-import type { Category } from '@/modules/common/interfaces/category.interface'
-import type { Payer } from '@/modules/common/interfaces/payer.interface'
 import { ref } from 'vue'
 
 interface Props {
   showModal: boolean
-  categories: Category[]
-  payers: Payer[]
 }
 
 defineProps<Props>()
 const emits = defineEmits(['confirm', 'cancel'])
 
 const expenseForm = ref({
-  date: {
-    value: '',
-    error: '',
-  },
   description: {
     value: '',
     error: '',
   },
-  category: {
-    value: '',
-    error: '',
-  },
   amount: {
-    value: '',
-    error: '',
-  },
-  payer: {
     value: '',
     error: '',
   },
@@ -90,23 +74,10 @@ const handleSubmit = () => {
       </button>
 
       <!-- Título -->
-      <h2 class="text-2xl font-bold mb-1">Crear nuevo gasto</h2>
+      <h2 class="text-2xl font-bold mb-1">Crear nuevo ingreso</h2>
 
       <!-- Formulario -->
       <form id="expenseForm" @submit.prevent="handleSubmit" class="space-y-4 mt-6">
-        <div class="flex flex-col space-y-1">
-          <label for="date" class="font-semibold">Fecha</label>
-          <input
-            v-model="expenseForm.date.value"
-            name="date"
-            type="date"
-            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <p v-if="expenseForm.date.error" class="text-sm text-red-600">
-            {{ expenseForm.date.error }}
-          </p>
-        </div>
-
         <div class="flex flex-col space-y-1">
           <label for="description" class="font-semibold">Descripción</label>
           <input
@@ -121,22 +92,6 @@ const handleSubmit = () => {
         </div>
 
         <div class="flex flex-col space-y-1">
-          <label for="category" class="font-semibold">Categoría</label>
-          <select
-            v-model="expenseForm.category.value"
-            name="category"
-            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option v-for="category in categories" :value="category._id" :key="category._id">
-              {{ category.name }}
-            </option>
-          </select>
-          <p v-if="expenseForm.category.error" class="text-sm text-red-600">
-            {{ expenseForm.category.error }}
-          </p>
-        </div>
-
-        <div class="flex flex-col space-y-1">
           <label for="amount" class="font-semibold">Valor</label>
           <input
             v-model="expenseForm.amount.value"
@@ -147,22 +102,6 @@ const handleSubmit = () => {
           />
           <p v-if="expenseForm.amount.error" class="text-sm text-red-600">
             {{ expenseForm.amount.error }}
-          </p>
-        </div>
-
-        <div class="flex flex-col space-y-1">
-          <label for="payer" class="font-semibold">Pagador</label>
-          <select
-            v-model="expenseForm.payer.value"
-            name="payer"
-            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option v-for="payer in payers" :value="payer._id" :key="payer._id">
-              {{ payer.name }}
-            </option>
-          </select>
-          <p v-if="expenseForm.payer.error" class="text-sm text-red-600">
-            {{ expenseForm.payer.error }}
           </p>
         </div>
       </form>

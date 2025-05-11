@@ -6,6 +6,7 @@ import ExpenseAPI from '@/api/ExpenseAPI'
 import { useUserStore } from './user.store'
 import type { Payer } from '@/modules/common/interfaces/payer.interface'
 import type { Category } from '@/modules/common/interfaces/category.interface'
+import type { Income } from '@/modules/common/interfaces/income.interface'
 
 const userStore = useUserStore()
 export const useExpenseStore = defineStore('expense', () => {
@@ -104,12 +105,32 @@ export const useExpenseStore = defineStore('expense', () => {
     )
   }
 
+  // Incomes
+  const incomes = ref<Income[]>([])
+  const totalIncomes = computed(() => {
+    return incomes.value.reduce((acc, income) => acc + income.amount, 0)
+  })
+  const getUserIncomes = async () => {
+    await UserAPI.getUserIncomes(userStore.user?._id!, userStore.activeSheetId).then(({ data }) => {
+      incomes.value = data
+    })
+  }
+
+  // Common
   const createExpense = async (expense: Expense) => {
     await ExpenseAPI.createExpense(expense)
   }
 
   const deleteExpense = async (expenseId: string) => {
     await ExpenseAPI.deleteExpense(userStore.activeSheetId, expenseId)
+  }
+
+  const createIncome = async (income: Income) => {
+    await ExpenseAPI.createIncome(income)
+  }
+
+  const deleteIncome = async (incomeId: string) => {
+    await ExpenseAPI.deleteIncome(userStore.activeSheetId, incomeId)
   }
   return {
     // Fixed expenses
@@ -130,8 +151,14 @@ export const useExpenseStore = defineStore('expense', () => {
     uniqueCashCategories,
     uniqueCashPayers,
     getUserCashExpenses,
+    // Incomes
+    incomes,
+    totalIncomes,
+    getUserIncomes,
     // Common
     createExpense,
     deleteExpense,
+    createIncome,
+    deleteIncome,
   }
 })

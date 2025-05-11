@@ -19,4 +19,7 @@ export default {
   getUserCashExpenses(userId: string, sheetId: string) {
     return api.get(`/users/${userId}/${sheetId}/cash-expenses`)
   },
+  getUserIncomes(userId: string, sheetId: string) {
+    return api.get(`/users/${userId}/${sheetId}/incomes`)
+  },
 }

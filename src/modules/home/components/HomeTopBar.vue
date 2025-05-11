@@ -5,7 +5,7 @@ defineEmits(['logout'])
 </script>
 
 <template>
-  <div class="flex items-center justify-between bg-gray-200 h-[5vh]">
+  <div class="flex items-center justify-between bg-gray-200 h-[7vh]">
     <h2 class="text-4xl font-bold text-center ml-5">Presupuesto</h2>
     <div class="flex items-center h-full">
       <nav class="flex ml-auto items-center h-full font-semibold">
