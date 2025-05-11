@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import AuthAPI from '@/api/AuthAPI'
+import { useUserStore } from '@/stores/user.store'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
-const router = useRouter()
+const userStore = useUserStore()
 
 const formData = ref({
   name: '',
@@ -13,17 +16,15 @@ const formData = ref({
 })
 
 const onRegister = async () => {
-  try {
-    await AuthAPI.register({
-      name: formData.value.name,
-      email: formData.value.email,
-      password: formData.value.password,
+  if (formData.value.password !== formData.value.password2) {
+    toast('Las contraseñas no coinciden', {
+      type: 'error',
+      autoClose: 2000,
     })
-
-    router.push({ name: 'login' })
-  } catch (error) {
-    console.log(error)
+    return
   }
+
+  await userStore.registerUser(formData.value)
 }
 </script>
 
@@ -82,13 +83,17 @@ const onRegister = async () => {
     <div class="flex flex-col gap-4">
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full"
+        class="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full flex items-center justify-center"
       >
-        Registrarse
+        <span v-if="!userStore.loading">Registrarse</span>
+        <VueSpinnerDots v-else size="20" color="white" />
       </button>
       <p>
         Si ya tienes una cuenta puedes
-        <RouterLink :to="{ name: 'login' }" class="font-semibold underline"
+        <RouterLink
+          :to="{ name: 'login' }"
+          class="font-semibold underline"
+          :class="{ 'pointer-events-none': userStore.loading }"
           >iniciar sesión</RouterLink
         >.
       </p>

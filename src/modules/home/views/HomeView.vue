@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import SheetAPI from '@/api/SheetAPI'
-import NewSheetModal from '@/modules/home/components/NewSheetModal.vue'
-import { useUserStore } from '@/stores/user.store'
-import HomeTopBar from '../components/HomeTopBar.vue'
-import SheetCard from '../components/SheetCard.vue'
-import ConfirmationModal from '../../common/components/ConfirmationModal.vue'
 import { ref } from 'vue'
-import PlusIcon from '@/modules/common/icons/PlusIcon.vue'
+
+import { useUserStore } from '@/stores/user.store'
+
+import SheetAPI from '@/api/SheetAPI'
+
+import NewSheetModal from '@/modules/home/components/NewSheetModal.vue'
+import ConfirmationModal from '../../common/components/ConfirmationModal.vue'
+import SheetCard from '../components/SheetCard.vue'
 import AddButton from '@/modules/common/components/AddButton.vue'
 
 const userStore = useUserStore()
@@ -47,6 +48,7 @@ const removeSheet = async () => {
         <SheetCard :sheets="userStore.userSheets" @removeSheet="openRemoveConfirmation" />
       </div>
     </div>
+    <VueSpinnerDots v-else-if="userStore.loading" class="mt-10" />
     <h2 v-else class="text-2xl font-semibold mb-4 text-center mt-4">
       Aún no tienes ninguna hoja de gasto
     </h2>

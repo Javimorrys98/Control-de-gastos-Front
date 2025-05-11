@@ -1,15 +1,19 @@
 <script lang="ts" setup>
-import AddButton from '@/modules/common/components/AddButton.vue'
 import { onMounted, ref } from 'vue'
-import NewExpenseModal from '../components/NewExpenseModal.vue'
-import type { Expense } from '@/modules/common/interfaces/expense.interface'
+import { useRoute } from 'vue-router'
+
 import { useUserStore } from '@/stores/user.store'
 import { useExpenseStore } from '@/stores/expense.store'
+
+import { formatCurrency, formatDate } from '@/helpers'
+
+import AddButton from '@/modules/common/components/AddButton.vue'
+import NewExpenseModal from '../components/NewExpenseModal.vue'
+import ConfirmationModal from '@/modules/common/components/ConfirmationModal.vue'
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
 import EditIcon from '@/modules/common/icons/EditIcon.vue'
-import { useRoute } from 'vue-router'
-import { formatCurrency, formatDate } from '@/helpers'
-import ConfirmationModal from '@/modules/common/components/ConfirmationModal.vue'
+
+import type { Expense } from '@/modules/common/interfaces/expense.interface'
 
 const userStore = useUserStore()
 const expenseStore = useExpenseStore()
@@ -139,6 +143,9 @@ const openRemoveConfirmation = (expenseId: string) => {
         </table>
       </aside>
     </main>
+    <div v-else-if="expenseStore.loading" class="flex justify-center my-10">
+      <VueSpinnerDots class="mt-10" size="50" />
+    </div>
     <h2 v-else class="text-2xl font-semibold mb-4 text-center mt-4">
       Aún no tienes ningún gasto fijo
     </h2>

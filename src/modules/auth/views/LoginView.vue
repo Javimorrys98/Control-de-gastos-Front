@@ -42,14 +42,20 @@ const onLogin = async () => {
     <div class="flex flex-col gap-4">
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full"
+        class="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full flex items-center justify-center"
+        :disabled="userStore.loading"
       >
-        Iniciar sesión
+        <span v-if="!userStore.loading">Iniciar sesión</span>
+        <VueSpinnerDots v-else size="20" color="white" />
       </button>
       <p>
         Si aún no tienes una cuenta puedes
-        <RouterLink :to="{ name: 'register' }" class="font-semibold underline"
-          >registrarte</RouterLink
+        <RouterLink
+          :to="{ name: 'register' }"
+          class="font-semibold underline"
+          :class="{ 'pointer-events-none': userStore.loading }"
+        >
+          registrarte</RouterLink
         >.
       </p>
     </div>

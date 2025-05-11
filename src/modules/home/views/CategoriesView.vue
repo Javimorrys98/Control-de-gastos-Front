@@ -56,6 +56,7 @@ const removeCategory = async () => {
         </tbody>
       </table>
     </div>
+    <VueSpinnerDots v-else-if="userStore.loading" class="mt-10" />
     <h2 v-else class="text-2xl font-semibold mb-4 text-center mt-4">
       Aún no tienes ninguna categoría
     </h2>

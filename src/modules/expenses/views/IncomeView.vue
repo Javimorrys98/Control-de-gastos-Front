@@ -1,14 +1,18 @@
 <script lang="ts" setup>
-import { formatCurrency } from '@/helpers'
-import AddButton from '@/modules/common/components/AddButton.vue'
-import { useExpenseStore } from '@/stores/expense.store'
 import { onMounted, ref } from 'vue'
-import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
-import type { Income } from '@/modules/common/interfaces/income.interface'
+import { useRoute } from 'vue-router'
+
+import { useExpenseStore } from '@/stores/expense.store'
 import { useUserStore } from '@/stores/user.store'
+
+import { formatCurrency } from '@/helpers'
+
 import NewIncomeModal from '@/modules/expenses/components/NewIncomeModal.vue'
 import ConfirmationModal from '@/modules/common/components/ConfirmationModal.vue'
-import { useRoute } from 'vue-router'
+import AddButton from '@/modules/common/components/AddButton.vue'
+import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
+
+import type { Income } from '@/modules/common/interfaces/income.interface'
 
 const userStore = useUserStore()
 const expenseStore = useExpenseStore()
@@ -17,7 +21,7 @@ const sheetId = route.params.id as string
 
 onMounted(async () => {
   userStore.setActiveSheetId(sheetId)
-  await expenseStore.getUserFixedExpenses()
+  await expenseStore.getUserIncomes()
 })
 
 const showModalConfirmation = ref(false)
@@ -90,6 +94,9 @@ const openRemoveConfirmation = (incomeId: string) => {
         </table>
       </div>
     </main>
+    <div v-else-if="expenseStore.loading" class="flex justify-center my-10">
+      <VueSpinnerDots class="mt-10" size="50" />
+    </div>
     <h2 v-else class="text-2xl font-semibold mb-4 text-center mt-4">
       Aún no tienes ningún ingreso
     </h2>
