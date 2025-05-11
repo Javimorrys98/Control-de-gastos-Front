@@ -106,7 +106,12 @@ export const useUserStore = defineStore('user', () => {
   async function registerUser(newUserData: RegisterData) {
     loading.value = true
     try {
-      await AuthAPI.register(newUserData)
+      const { data } = await AuthAPI.register(newUserData)
+      toast(data.msg, {
+        autoClose: 2000,
+        type: 'success',
+      })
+      await new Promise((resolve) => setTimeout(resolve, 2200))
       router.push({ name: 'login' })
     } catch (error: any) {
       toast(error.response.data.msg, {
