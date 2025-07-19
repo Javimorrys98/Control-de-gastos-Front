@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import AddButton from '@/modules/common/components/AddButton.vue'
 import { useUserStore } from '@/stores/user.store'
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import NewPayerModal from '../components/NewPayerModal.vue'
 import PayerAPI from '@/api/PayerAPI'
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
@@ -9,6 +9,20 @@ import EditIcon from '@/modules/common/icons/EditIcon.vue'
 import ConfirmationModal from '../../common/components/ConfirmationModal.vue'
 
 const userStore = useUserStore()
+
+onMounted(async () => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === '+') {
+    showNewPayerModal.value = true
+  }
+}
 
 const showNewPayerModal = ref(false)
 const showModalConfirmation = ref(false)

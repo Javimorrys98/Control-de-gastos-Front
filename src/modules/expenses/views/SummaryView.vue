@@ -72,6 +72,7 @@ const width = ref(window.innerWidth * 0.5)
               <p class="text-lg font-semibold">Total Gastos Fijos:</p>
               <p class="text-lg font-semibold">Total Gastos Variables:</p>
               <p class="text-lg font-semibold">Total Gastos Efectivo:</p>
+              <p class="text-lg font-semibold">Total Gastos:</p>
               <p class="text-lg font-bold mt-3">Total Ahorro:</p>
             </div>
             <div class="flex flex-col text-right">
@@ -79,6 +80,7 @@ const width = ref(window.innerWidth * 0.5)
               <p class="text-lg">{{ formatCurrency(expenseStore.totalFixedExpenses) }}</p>
               <p class="text-lg">{{ formatCurrency(expenseStore.totalVariableExpenses) }}</p>
               <p class="text-lg">{{ formatCurrency(expenseStore.totalCashExpenses) }}</p>
+              <p class="text-lg">{{ formatCurrency(expenseStore.totalExpenses) }}</p>
               <p class="text-lg font-bold mt-3">{{ formatCurrency(expenseStore.savings) }}</p>
             </div>
           </div>

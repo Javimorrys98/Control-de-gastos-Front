@@ -1,10 +1,27 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 interface Props {
   showModal: boolean
 }
 defineProps<Props>()
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    onCancel()
+  } else if (e.key === 'Enter') {
+    e.preventDefault() // Prevent default form submission
+    onCreatePayer()
+  }
+}
 
 const payerName = ref('')
 

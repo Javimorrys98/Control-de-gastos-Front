@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import AddButton from '@/modules/common/components/AddButton.vue'
 import { useUserStore } from '@/stores/user.store'
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
 import EditIcon from '@/modules/common/icons/EditIcon.vue'
 import NewCategoryModal from '../components/NewCategoryModal.vue'
@@ -9,6 +9,20 @@ import CategoryAPI from '@/api/CategoryAPI'
 import ConfirmationModal from '../../common/components/ConfirmationModal.vue'
 
 const userStore = useUserStore()
+
+onMounted(async () => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === '+') {
+    showNewCategoryModal.value = true
+  }
+}
 
 const showNewCategoryModal = ref(false)
 const showModalConfirmation = ref(false)

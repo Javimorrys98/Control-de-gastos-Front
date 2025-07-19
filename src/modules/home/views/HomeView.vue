@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 import { useUserStore } from '@/stores/user.store'
 
@@ -16,6 +16,20 @@ const showModalConfirmation = ref(false)
 const selectedSheetId = ref<string>('')
 
 const showNewSheetModal = ref(false)
+
+onMounted(async () => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === '+') {
+    showNewSheetModal.value = true
+  }
+}
 
 const createSheet = async (sheetName: string) => {
   await SheetAPI.createSheet({ name: sheetName })

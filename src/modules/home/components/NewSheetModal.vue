@@ -1,10 +1,27 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 interface Props {
   showModal: boolean
 }
 defineProps<Props>()
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    onCancel()
+  } else if (e.key === 'Enter') {
+    e.preventDefault() // Prevent default form submission
+    onCreateSheet()
+  }
+}
 
 const sheetName = ref('')
 

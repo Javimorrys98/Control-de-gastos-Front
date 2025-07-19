@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { useExpenseStore } from '@/stores/expense.store'
@@ -22,7 +22,19 @@ const sheetId = route.params.id as string
 onMounted(async () => {
   userStore.setActiveSheetId(sheetId)
   await expenseStore.getUserIncomes()
+
+  window.addEventListener('keydown', handleKeyDown)
 })
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === '+') {
+    showNewIncomeModal.value = true
+  }
+}
 
 const showModalConfirmation = ref(false)
 const selectedIncomeId = ref('')

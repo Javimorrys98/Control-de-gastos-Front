@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Category } from '@/modules/common/interfaces/category.interface'
 import type { Payer } from '@/modules/common/interfaces/payer.interface'
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 interface Props {
   showModal: boolean
@@ -9,8 +9,26 @@ interface Props {
   payers: Payer[]
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 const emits = defineEmits(['confirm', 'cancel'])
+
+onMounted(() => {
+  window.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeyDown)
+})
+
+function handleKeyDown(e: KeyboardEvent) {
+  if (e.key === 'Escape') {
+    emits('cancel')
+    resetForm()
+  } else if (e.key === 'Enter') {
+    e.preventDefault() // Evita el envío del formulario por defecto
+    handleSubmit()
+  }
+}
 
 const expenseForm = ref({
   date: {
@@ -22,7 +40,7 @@ const expenseForm = ref({
     error: '',
   },
   category: {
-    value: '',
+    value: props.categories.length === 1 ? props.categories[0]._id : '',
     error: '',
   },
   amount: {
@@ -30,7 +48,7 @@ const expenseForm = ref({
     error: '',
   },
   payer: {
-    value: '',
+    value: props.payers.length === 1 ? props.payers[0]._id : '',
     error: '',
   },
 })
@@ -62,16 +80,29 @@ const handleSubmit = () => {
     return
   }
 
+  resetForm()
+
   // Si todo es válido, emite el evento 'confirm'
   emits(
     'confirm',
     Object.fromEntries(Object.entries(expenseForm.value).map(([key, field]) => [key, field.value])),
   )
+}
 
+const resetForm = () => {
   // Reiniciar el formulario
   Object.values(expenseForm.value).forEach((field) => {
     field.value = ''
+    field.error = ''
   })
+
+  // Reiniciar categoría y pagador si hay más de uno
+  if (props.categories.length === 1) {
+    expenseForm.value.category.value = props.categories[0]._id
+  }
+  if (props.payers.length === 1) {
+    expenseForm.value.payer.value = props.payers[0]._id
+  }
 }
 </script>
 

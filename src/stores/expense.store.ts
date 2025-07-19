@@ -152,6 +152,11 @@ export const useExpenseStore = defineStore('expense', () => {
     }
   }
 
+  // Total expenses
+  const totalExpenses = computed(() => {
+    return totalFixedExpenses.value + totalVariableExpenses.value + totalCashExpenses.value
+  })
+
   // Incomes
   const incomes = ref<Income[]>([])
 
@@ -269,6 +274,9 @@ export const useExpenseStore = defineStore('expense', () => {
     uniqueCashCategories,
     uniqueCashPayers,
     getUserCashExpenses,
+
+    // Total expenses
+    totalExpenses,
 
     // Incomes
     incomes,
