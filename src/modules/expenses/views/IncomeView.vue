@@ -11,6 +11,8 @@ import NewIncomeModal from '@/modules/expenses/components/NewIncomeModal.vue'
 import ConfirmationModal from '@/modules/common/components/ConfirmationModal.vue'
 import AddButton from '@/modules/common/components/AddButton.vue'
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
+import EditIcon from '@/modules/common/icons/EditIcon.vue'
+import SortIcon from '@/modules/common/icons/SortIcon.vue'
 
 import type { Income } from '@/modules/common/interfaces/income.interface'
 
@@ -68,8 +70,20 @@ const openRemoveConfirmation = (incomeId: string) => {
           <!-- head -->
           <thead class="bg-blue-500 sticky top-0 z-10">
             <tr>
-              <th>Concepto</th>
-              <th>Importe</th>
+              <th>
+                <span class="flex gap-2"
+                  >Concepto<SortIcon
+                    class="cursor-pointer"
+                    @click="expenseStore.sortExpenses('incomes', 'description')"
+                /></span>
+              </th>
+              <th>
+                <span class="flex gap-2"
+                  >Importe<SortIcon
+                    class="cursor-pointer"
+                    @click="expenseStore.sortExpenses('incomes', 'amount')"
+                /></span>
+              </th>
               <th>Acciones</th>
             </tr>
           </thead>

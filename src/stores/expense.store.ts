@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 
 import UserAPI from '@/api/UserAPI'
@@ -253,6 +253,51 @@ export const useExpenseStore = defineStore('expense', () => {
     )
   })
 
+  const lists = {
+    fixedExpenses,
+    variableExpenses,
+    cashExpenses,
+    incomes,
+  }
+
+  const sortAsc = ref(true)
+
+  const sortExpenses = (listname: keyof typeof lists, property: keyof Expense) => {
+    sortAsc.value = !sortAsc.value
+    const array = lists[listname] as Ref<Expense[]>
+    array.value.sort((a, b) => {
+      const valA = a[property]
+      const valB = b[property]
+
+      // Para fechas, convertimos a timestamp
+      if (property === 'date') {
+        const dateA = new Date(valA as string).getTime()
+        const dateB = new Date(valB as string).getTime()
+        return sortAsc.value ? dateA - dateB : dateB - dateA
+      }
+
+      // Para cantidad, orden numérico
+      if (property === 'amount') {
+        return sortAsc.value
+          ? (valA as number) - (valB as number)
+          : (valB as number) - (valA as number)
+      }
+
+      // Para objetos, comparamos por ID
+      if (typeof valA === 'object' && typeof valB === 'object' && valA !== null && valB !== null) {
+        const idA = (valA as { _id: string })._id
+        const idB = (valB as { _id: string })._id
+        return sortAsc.value ? idA.localeCompare(idB) : idB.localeCompare(idA)
+      }
+
+      // Para strings
+      if (typeof valA === 'string' && typeof valB === 'string') {
+        return sortAsc.value ? valA.localeCompare(valB) : valB.localeCompare(valA)
+      }
+
+      return 0
+    })
+  }
   return {
     // Fixed expenses
     fixedExpenses,
@@ -290,5 +335,6 @@ export const useExpenseStore = defineStore('expense', () => {
     deleteIncome,
     loading,
     savings,
+    sortExpenses,
   }
 })

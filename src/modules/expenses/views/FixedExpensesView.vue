@@ -12,6 +12,7 @@ import NewExpenseModal from '../components/NewExpenseModal.vue'
 import ConfirmationModal from '@/modules/common/components/ConfirmationModal.vue'
 import TrashIcon from '@/modules/common/icons/TrashIcon.vue'
 import EditIcon from '@/modules/common/icons/EditIcon.vue'
+import SortIcon from '@/modules/common/icons/SortIcon.vue'
 
 import type { Expense } from '@/modules/common/interfaces/expense.interface'
 
@@ -71,11 +72,41 @@ const openRemoveConfirmation = (expenseId: string) => {
           <!-- head -->
           <thead class="bg-blue-500 sticky top-0 z-10">
             <tr>
-              <th>Fecha</th>
-              <th>Concepto</th>
-              <th>Categoría</th>
-              <th>Pagador</th>
-              <th>Importe</th>
+              <th>
+                <span class="flex gap-2"
+                  >Fecha<SortIcon
+                    class="cursor-pointer"
+                    @click="expenseStore.sortExpenses('fixedExpenses', 'date')"
+                /></span>
+              </th>
+              <th>
+                <span class="flex gap-2"
+                  >Concepto<SortIcon
+                    class="cursor-pointer"
+                    @click="expenseStore.sortExpenses('fixedExpenses', 'description')"
+                /></span>
+              </th>
+              <th>
+                <span class="flex gap-2"
+                  >Categoría<SortIcon
+                    class="cursor-pointer"
+                    @click="expenseStore.sortExpenses('fixedExpenses', 'category')"
+                /></span>
+              </th>
+              <th>
+                <span class="flex gap-2"
+                  >Pagador<SortIcon
+                    class="cursor-pointer"
+                    @click="expenseStore.sortExpenses('fixedExpenses', 'payer')"
+                /></span>
+              </th>
+              <th>
+                <span class="flex gap-2"
+                  >Importe<SortIcon
+                    class="cursor-pointer"
+                    @click="expenseStore.sortExpenses('fixedExpenses', 'amount')"
+                /></span>
+              </th>
               <th>Acciones</th>
             </tr>
           </thead>
