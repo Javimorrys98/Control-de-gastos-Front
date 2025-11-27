@@ -13,21 +13,25 @@ const props = defineProps<Props>()
 const emits = defineEmits(['confirm', 'cancel'])
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown)
+  globalThis.addEventListener('keydown', handleKeyDown)
 })
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown)
+  globalThis.removeEventListener('keydown', handleKeyDown)
 })
 
 function handleKeyDown(e: KeyboardEvent) {
   if (e.key === 'Escape') {
-    emits('cancel')
-    resetForm()
+    closeForm()
   } else if (e.key === 'Enter') {
     e.preventDefault() // Evita el envío del formulario por defecto
     handleSubmit()
   }
+}
+
+function closeForm() {
+  emits('cancel')
+  resetForm()
 }
 
 const expenseForm = ref({
@@ -80,13 +84,13 @@ const handleSubmit = () => {
     return
   }
 
-  resetForm()
-
   // Si todo es válido, emite el evento 'confirm'
   emits(
     'confirm',
     Object.fromEntries(Object.entries(expenseForm.value).map(([key, field]) => [key, field.value])),
   )
+
+  resetForm()
 }
 
 const resetForm = () => {
@@ -114,7 +118,7 @@ const resetForm = () => {
     <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6 relative">
       <!-- Botón de cerrar -->
       <button
-        @click="$emit('cancel')"
+        @click="closeForm()"
         class="absolute top-2 right-4 text-gray-500 hover:text-black text-3xl font-bold cursor-pointer"
       >
         &times;
@@ -201,7 +205,7 @@ const resetForm = () => {
       <!-- Botones -->
       <div class="flex justify-end gap-3 mt-6">
         <button
-          @click="$emit('cancel')"
+          @click="closeForm()"
           class="card bg-red-500 hover:bg-red-800 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
         >
           Cancelar
