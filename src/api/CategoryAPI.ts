@@ -5,6 +5,6 @@ export default {
     return api.post('/categories', data)
   },
   removeCategory(id: string) {
-    return api.delete(`/categories/${id}`)
+    return api.patch(`/categories/${id}/remove`)
   },
 }

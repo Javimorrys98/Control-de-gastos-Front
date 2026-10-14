@@ -5,6 +5,6 @@ export default {
     return api.post('/payers', data)
   },
   removePayer(id: string) {
-    return api.delete(`/payers/${id}`)
+    return api.patch(`/payers/${id}/remove`)
   },
 }
