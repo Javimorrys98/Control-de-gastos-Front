@@ -10,6 +10,9 @@ export default {
   getUserPayers(userId: string) {
     return api.get(`/users/${userId}/payers`)
   },
+  getUserTemplates(userId: string) {
+    return api.get(`/users/${userId}/templates`)
+  },
   getUserFixedExpenses(userId: string, sheetId: string) {
     return api.get(`/users/${userId}/${sheetId}/fixed-expenses`)
   },

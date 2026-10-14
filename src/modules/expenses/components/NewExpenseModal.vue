@@ -1,18 +1,22 @@
 <script lang="ts" setup>
 import type { Category } from '@/modules/common/interfaces/category.interface'
 import type { Payer } from '@/modules/common/interfaces/payer.interface'
-import { ref, onMounted, onUnmounted } from 'vue'
+import type { Template } from '@/modules/common/interfaces/template.interface';
+import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 
 interface Props {
   showModal: boolean
   categories: Category[]
   payers: Payer[]
+  templates: Template[]
 }
 
 const props = defineProps<Props>()
 const emits = defineEmits(['confirm', 'cancel'])
 
 onMounted(() => {
+  const storedValue = localStorage.getItem('isTemplateMode')
+  isTemplateMode.value = storedValue === null ? false : storedValue === 'true'
   globalThis.addEventListener('keydown', handleKeyDown)
 })
 
@@ -33,6 +37,12 @@ function closeForm() {
   emits('cancel')
   resetForm()
 }
+
+const isTemplateMode = ref(false)
+
+watch(isTemplateMode, (value) => {
+  localStorage.setItem('isTemplateMode', String(value))
+})
 
 const expenseForm = ref({
   date: {
@@ -108,6 +118,32 @@ const resetForm = () => {
     expenseForm.value.payer.value = props.payers[0]._id
   }
 }
+
+const selectedTemplateId = ref('')
+const templateError = computed(
+  () => expenseForm.value.category.error || expenseForm.value.description.error
+)
+
+const applyTemplate = (event: Event): void => {
+  const target = event.target as HTMLSelectElement
+
+  selectedTemplateId.value = target.value
+
+  if (!target.value) {
+    expenseForm.value.description.value = ''
+    expenseForm.value.category.value = props.categories.length === 1 ? props.categories[0]._id : ''
+    return
+  }
+
+  const selectedTemplate = props.templates.find((template) => template._id === target.value)
+
+  if (!selectedTemplate) return
+
+  const { name, category } = selectedTemplate
+
+  expenseForm.value.description.value = name
+  expenseForm.value.category.value = category._id
+}
 </script>
 
 <template>
@@ -142,7 +178,7 @@ const resetForm = () => {
           </p>
         </div>
 
-        <div class="flex flex-col space-y-1">
+        <div v-if="!isTemplateMode" class="flex flex-col space-y-1">
           <label for="description" class="font-semibold">Descripción</label>
           <input
             v-model="expenseForm.description.value"
@@ -155,7 +191,7 @@ const resetForm = () => {
           </p>
         </div>
 
-        <div class="flex flex-col space-y-1">
+        <div v-if="!isTemplateMode" class="flex flex-col space-y-1">
           <label for="category" class="font-semibold">Categoría</label>
           <select
             v-model="expenseForm.category.value"
@@ -168,6 +204,24 @@ const resetForm = () => {
           </select>
           <p v-if="expenseForm.category.error" class="text-sm text-red-600">
             {{ expenseForm.category.error }}
+          </p>
+        </div>
+
+        <div v-if="isTemplateMode" class="flex flex-col space-y-1">
+          <label for="category" class="font-semibold">Plantilla</label>
+          <select
+            :value="selectedTemplateId"
+            @change="applyTemplate"
+            name="template"
+            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Selecciona una plantilla</option>
+            <option v-for="template in templates" :key="template._id" :value="template._id">
+              {{ template.name }}
+            </option>
+          </select>
+          <p v-if="templateError" class="text-sm text-red-600">
+            {{ templateError }}
           </p>
         </div>
 
@@ -203,23 +257,79 @@ const resetForm = () => {
       </form>
 
       <!-- Botones -->
-      <div class="flex justify-end gap-3 mt-6">
-        <button
-          @click="closeForm()"
-          class="card bg-red-500 hover:bg-red-800 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
-        >
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          form="expenseForm"
-          class="card bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
-        >
-          Crear
-        </button>
+      <div class="flex justify-between items-center mt-6">
+        <div class="flex gap-3">
+          <label class="switch">
+            <input v-model="isTemplateMode" type="checkbox" id="isTemplateMode">
+            <span class="slider"></span>
+          </label>
+          <span>Modo plantilla</span>
+        </div>
+        <div class="flex justify-end gap-3">
+          <button
+            @click="closeForm()"
+            class="card bg-red-500 hover:bg-red-800 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            form="expenseForm"
+            class="card bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
+          >
+            Crear
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background-color: #ccc;
+    border-radius: 26px;
+    transition: 0.3s;
+  }
+
+  .slider::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+
+  .switch input:checked + .slider {
+    background-color: var(--color-blue-500);
+  }
+
+  .switch input:checked + .slider::before {
+    transform: translateX(24px);
+  }
+
+  .switch input:focus-visible + .slider {
+    outline: 2px solid #2563eb;
+    outline-offset: 3px;
+  }
+</style>

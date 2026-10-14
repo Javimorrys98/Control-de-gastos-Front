@@ -10,6 +10,7 @@ import type { User } from '@/modules/common/interfaces/user.interface'
 import type { Sheet } from '@/modules/common/interfaces/sheet.interface'
 import type { Category } from '@/modules/common/interfaces/category.interface'
 import type { Payer } from '@/modules/common/interfaces/payer.interface'
+import type { Template } from '@/modules/common/interfaces/template.interface'
 import type { RegisterData } from '@/modules/auth/interfaces/register.data.interface'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -21,6 +22,7 @@ export const useUserStore = defineStore('user', () => {
   const userSheets = ref<Sheet[]>([])
   const userCategories = ref<Category[]>([])
   const userPayers = ref<Payer[]>([])
+  const userTemplates = ref<Template[]>([])
   const activeSheetId = ref('')
   const loading = ref(false)
 
@@ -32,6 +34,7 @@ export const useUserStore = defineStore('user', () => {
       await getUserSheets()
       await getUserCategories()
       await getUserPayers()
+      await getUserTemplates()
     } catch (error) {
       toast('Error al inicializar el usuario', {
         autoClose: 2000,
@@ -103,6 +106,26 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  async function getUserTemplates() {
+    if (!user.value) {
+      return
+    }
+    loading.value = true
+
+    try {
+      const { data } = await UserAPI.getUserTemplates(user.value?._id)
+      userTemplates.value = data
+    } catch (error) {
+      toast('Error al cargar las plantillas del usuario', {
+        autoClose: 2000,
+        type: 'error',
+      })
+      console.error(error)
+    } finally {
+      loading.value = false
+    }
+  }
+
   async function registerUser(newUserData: RegisterData) {
     loading.value = true
     try {
@@ -162,6 +185,7 @@ export const useUserStore = defineStore('user', () => {
     userSheets,
     userCategories,
     userPayers,
+    userTemplates,
     loading,
     activeSheetId,
     registerUser,
@@ -171,6 +195,7 @@ export const useUserStore = defineStore('user', () => {
     getUserSheets,
     getUserCategories,
     getUserPayers,
+    getUserTemplates,
     setActiveSheetId,
   }
 })

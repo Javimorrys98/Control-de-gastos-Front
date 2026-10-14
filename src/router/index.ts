@@ -27,6 +27,11 @@ const router = createRouter({
           name: 'payers',
           component: () => import('@/modules/home/views/PayersView.vue'),
         },
+        {
+          path: 'templates',
+          name: 'templates',
+          component: () => import('@/modules/home/views/TemplatesView.vue')
+        }
       ],
     },
     {

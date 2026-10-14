@@ -197,6 +197,7 @@ const openRemoveConfirmation = (expenseId: string) => {
       :showModal="showNewExpenseModal"
       :payers="userStore.userPayers"
       :categories="userStore.userCategories"
+      :templates="userStore.userTemplates"
       @cancel="showNewExpenseModal = false"
       @confirm="createCashExpense"
     />
