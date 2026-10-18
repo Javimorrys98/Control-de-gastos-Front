@@ -39,7 +39,7 @@ const onRegister = async () => {
         type="text"
         id="username"
         name="username"
-        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#9B83B5]"
         autocomplete="off"
       />
     </div>
@@ -51,7 +51,7 @@ const onRegister = async () => {
         type="text"
         id="email"
         name="email"
-        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#9B83B5]"
         autocomplete="off"
       />
     </div>
@@ -63,7 +63,7 @@ const onRegister = async () => {
         type="password"
         id="password2"
         name="password"
-        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#9B83B5]"
         autocomplete="off"
       />
     </div>
@@ -75,7 +75,7 @@ const onRegister = async () => {
         type="password"
         id="password"
         name="password"
-        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#9B83B5]"
         autocomplete="off"
       />
     </div>
@@ -83,7 +83,7 @@ const onRegister = async () => {
     <div class="flex flex-col gap-4">
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full flex items-center justify-center"
+        class="bg-[#9B83B5] hover:bg-[#826B9A] transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full flex items-center justify-center"
       >
         <span v-if="!userStore.loading">Registrarse</span>
         <VueSpinnerDots v-else size="20" color="white" />
@@ -100,7 +100,7 @@ const onRegister = async () => {
     </div>
   </form>
   <!-- Sign up  Link -->
-  <div class="mt-6 text-blue-500 text-center"></div>
+  <div class="mt-6 text-[#826B9A] text-center"></div>
 </template>
 
 <style scoped></style>

@@ -37,7 +37,7 @@ const emits = defineEmits(['confirm', 'cancel'])
         </button>
         <button
           @click="$emit('confirm')"
-          class="card bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
+          class="card bg-[#9B83B5] hover:bg-[#826B9A] transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
         >
           Eliminar
         </button>

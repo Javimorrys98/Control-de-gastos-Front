@@ -24,7 +24,7 @@ const onLogin = async () => {
         type="text"
         id="email"
         name="email"
-        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#9B83B5]"
       />
     </div>
     <!-- Password Input -->
@@ -35,14 +35,14 @@ const onLogin = async () => {
         type="password"
         id="password"
         name="password"
-        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
+        class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-[#9B83B5]"
       />
     </div>
     <!-- Actions -->
     <div class="flex flex-col gap-4">
       <button
         type="submit"
-        class="bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full flex items-center justify-center"
+        class="bg-[#9B83B5] hover:bg-[#826B9A] transition-colors cursor-pointer text-white font-semibold rounded-md py-2 px-4 w-full flex items-center justify-center"
         :disabled="userStore.loading"
       >
         <span v-if="!userStore.loading">Iniciar sesión</span>
@@ -61,7 +61,7 @@ const onLogin = async () => {
     </div>
   </form>
   <!-- Sign up  Link -->
-  <div class="mt-6 text-blue-500 text-center"></div>
+  <div class="mt-6 text-[#826B9A] text-center"></div>
 </template>
 
 <style scoped></style>

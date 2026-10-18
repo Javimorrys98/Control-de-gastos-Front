@@ -50,14 +50,14 @@ const width = ref(window.innerWidth * 0.5)
         <Chart :size="{ width, height: 400 }" :data="data" direction="horizontal" :margin="margin">
           <template #layers>
             <Grid strokeDasharray="2,2" />
-            <Bar :dataKeys="['Concepto', 'Cantidad']" :barStyle="{ fill: '#2196F3' }" />
+            <Bar :dataKeys="['Concepto', 'Cantidad']" :barStyle="{ fill: '#9B83B5' }" />
           </template>
 
           <template #widgets>
             <Tooltip
-              borderColor="#2196F3"
+              borderColor="#9B83B5"
               :config="{
-                Cantidad: { color: '#2196F3', format: (value: number) => formatCurrency(value) },
+                Cantidad: { color: '#9B83B5', format: (value: number) => formatCurrency(value) },
               }"
             />
           </template>

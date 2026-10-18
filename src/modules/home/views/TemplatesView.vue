@@ -55,7 +55,7 @@ const removeTemplate = async () => {
     <div v-if="userStore.userTemplates.length" class="overflow-x-auto overflow-y-auto w-full">
       <table class="table">
         <thead>
-          <tr class="bg-blue-500 sticky top-0 z-10">
+          <tr class="bg-[#9B83B5] sticky top-0 z-10">
             <th>Descripción</th>
             <th>Categoría</th>
             <th class="text-right">Acciones</th>

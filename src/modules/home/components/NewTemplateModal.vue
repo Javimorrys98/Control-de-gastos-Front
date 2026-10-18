@@ -108,7 +108,7 @@ const resetForm = () => {
             v-model="templateForm.name.value"
             name="name"
             type="text"
-            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#9B83B5]"
           />
           <p v-if="templateForm.name.error" class="text-sm text-red-600">
             {{ templateForm.name.error }}
@@ -120,7 +120,7 @@ const resetForm = () => {
           <select
             v-model="templateForm.category.value"
             name="category"
-            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#9B83B5]"
           >
             <option v-for="category in categories" :value="category._id" :key="category._id">
               {{ category.name }}
@@ -142,7 +142,7 @@ const resetForm = () => {
         <button
           type="submit"
           form="templateForm"
-          class="card bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
+          class="card bg-[#9B83B5] hover:bg-[#826B9A] transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
         >
           Crear
         </button>

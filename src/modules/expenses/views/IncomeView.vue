@@ -68,7 +68,7 @@ const openRemoveConfirmation = (incomeId: string) => {
       <div class="overflow-x-auto overflow-y-auto w-full">
         <table class="table">
           <!-- head -->
-          <thead class="bg-blue-500 sticky top-0 z-10">
+          <thead class="bg-[#9B83B5] sticky top-0 z-10">
             <tr>
               <th>
                 <span class="flex gap-2"
@@ -108,7 +108,7 @@ const openRemoveConfirmation = (incomeId: string) => {
               </td>
             </tr>
           </tbody>
-          <tfoot class="bg-blue-500 sticky bottom-0 z-10">
+          <tfoot class="bg-[#9B83B5] sticky bottom-0 z-10">
             <tr>
               <td>Total:</td>
               <td>

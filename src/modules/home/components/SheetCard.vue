@@ -19,7 +19,7 @@ const handleClick = (sheetId: string) => {
   <div
     v-for="sheet in sheets"
     :key="'sheet' + sheet._id"
-    class="card bg-blue-500 hover:bg-blue-600 transition-colors shadow-sm flex items-center justify-between overflow-hidden rounded-lg cursor-pointer flex-row group"
+    class="card bg-[#9B83B5] hover:bg-[#826B9A] transition-colors shadow-sm flex items-center justify-between overflow-hidden rounded-lg cursor-pointer flex-row group"
   >
     <RouterLink :to="`/${sheet._id}`" class="h-10 w-20"></RouterLink>
     <RouterLink
@@ -29,7 +29,7 @@ const handleClick = (sheetId: string) => {
       {{ sheet.name }}
     </RouterLink>
     <div
-      class="h-15 w-20 bg-blue-600 flex justify-center items-center opacity-0 remove-btn group-hover:opacity-100 hover:bg-blue-300"
+      class="h-15 w-20 bg-[#826B9A] flex justify-center items-center opacity-0 remove-btn group-hover:opacity-100 hover:bg-[#C5B6D4]"
       @click.stop="handleClick(sheet._id)"
     >
       <TrashIcon />

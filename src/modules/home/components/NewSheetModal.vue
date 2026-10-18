@@ -142,7 +142,7 @@ const onCancel = () => {
               type="date"
               :required="selectedRecurringExpenseIds.length > 0"
               @input="recurringExpensesDateError = ''"
-              class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#9B83B5]"
             />
             <p v-if="recurringExpensesDateError" class="text-sm text-red-600">
               {{ recurringExpensesDateError }}
@@ -153,14 +153,14 @@ const onCancel = () => {
           class="overflow-x-auto overflow-y-auto max-h-64 w-full"
         >
           <table class="table">
-            <thead class="bg-blue-500 sticky top-0 z-10">
+            <thead class="bg-[#9B83B5] sticky top-0 z-10">
               <tr>
                 <th class="flex text-center items-center justify-center">
                   <input
                     type="checkbox"
                     :checked="allRecurringExpensesSelected"
                     aria-label="Seleccionar o desmarcar todos los gastos recurrentes"
-                    class="h-5 w-5 cursor-pointer accent-blue-900 outline-2 outline-white outline-offset-1"
+                    class="h-5 w-5 cursor-pointer accent-[#826B9A] outline-2 outline-white outline-offset-1"
                     @change="toggleAllRecurringExpenses"
                   />
                 </th>
@@ -232,7 +232,7 @@ const onCancel = () => {
           </button>
           <button
             @click="onCreateSheet"
-            class="card bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
+            class="card bg-[#9B83B5] hover:bg-[#826B9A] transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
           >
             Crear
           </button>
@@ -282,7 +282,7 @@ const onCancel = () => {
   }
 
   .switch input:checked + .slider {
-    background-color: var(--color-blue-500);
+    background-color: #9B83B5;
   }
 
   .switch input:checked + .slider::before {

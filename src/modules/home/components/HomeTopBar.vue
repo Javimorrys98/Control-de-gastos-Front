@@ -13,7 +13,7 @@ defineEmits(['logout'])
           :to="{ name: 'home' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'home',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'home',
           }"
         >
           Hojas de gastos
@@ -22,7 +22,7 @@ defineEmits(['logout'])
           :to="{ name: 'categories' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'categories',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'categories',
           }"
         >
           Categorías
@@ -31,7 +31,7 @@ defineEmits(['logout'])
           :to="{ name: 'payers' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'payers',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'payers',
           }"
         >
           Pagadores
@@ -40,7 +40,7 @@ defineEmits(['logout'])
           :to="{ name: 'templates' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'templates',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'templates',
           }"
         >
           Plantillas
@@ -49,7 +49,7 @@ defineEmits(['logout'])
           :to="{ name: 'recurring-expenses' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'recurring-expenses',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'recurring-expenses',
           }"
         >
           Gastos recurrentes

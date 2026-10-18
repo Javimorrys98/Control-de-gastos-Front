@@ -56,7 +56,7 @@ const removeRecurringExpense = async () => {
     <div v-if="userStore.userRecurringExpenses.length" class="overflow-x-auto overflow-y-auto w-full">
       <table class="table">
         <!-- head -->
-        <thead class="bg-blue-500 sticky top-0 z-10">
+        <thead class="bg-[#9B83B5] sticky top-0 z-10">
           <tr>
             <th>Concepto</th>
             <th>Categoria</th>

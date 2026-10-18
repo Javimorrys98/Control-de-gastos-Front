@@ -13,7 +13,7 @@ defineEmits(['logout'])
           :to="{ name: 'fixed' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'fixed',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'fixed',
           }"
         >
           Gastos fijos
@@ -22,7 +22,7 @@ defineEmits(['logout'])
           :to="{ name: 'variable' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'variable',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'variable',
           }"
         >
           Gastos variables
@@ -31,7 +31,7 @@ defineEmits(['logout'])
           :to="{ name: 'cash' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'cash',
+            ' font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'cash',
           }"
         >
           Gastos efectivo
@@ -40,7 +40,7 @@ defineEmits(['logout'])
           :to="{ name: 'income' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            'font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'income',
+            'font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'income',
           }"
         >
           Ingresos
@@ -49,7 +49,7 @@ defineEmits(['logout'])
           :to="{ name: 'summary' }"
           class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
           :class="{
-            'font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'summary',
+            'font-semibold border-b-2 border-[#826B9A] bg-gray-300': $route.name === 'summary',
           }"
         >
           Resumen

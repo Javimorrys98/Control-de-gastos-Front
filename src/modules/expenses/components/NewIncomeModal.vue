@@ -84,7 +84,7 @@ const handleSubmit = () => {
             v-model="expenseForm.description.value"
             name="description"
             type="text"
-            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#9B83B5]"
           />
           <p v-if="expenseForm.description.error" class="text-sm text-red-600">
             {{ expenseForm.description.error }}
@@ -98,7 +98,7 @@ const handleSubmit = () => {
             name="amount"
             type="number"
             step="0.01"
-            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#9B83B5]"
           />
           <p v-if="expenseForm.amount.error" class="text-sm text-red-600">
             {{ expenseForm.amount.error }}
@@ -117,7 +117,7 @@ const handleSubmit = () => {
         <button
           type="submit"
           form="expenseForm"
-          class="card bg-blue-500 hover:bg-blue-600 transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
+          class="card bg-[#9B83B5] hover:bg-[#826B9A] transition-colors cursor-pointer shadow-sm flex items-center justify-center px-3 py-1 rounded-lg text-white font-semibold"
         >
           Crear
         </button>
