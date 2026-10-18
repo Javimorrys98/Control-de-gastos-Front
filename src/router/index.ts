@@ -31,7 +31,12 @@ const router = createRouter({
           path: 'templates',
           name: 'templates',
           component: () => import('@/modules/home/views/TemplatesView.vue')
-        }
+        },
+        {
+          path: 'recurring-expenses',
+          name: 'recurring-expenses',
+          component: () => import('@/modules/home/views/RecurringExpensesView.vue'),
+        },
       ],
     },
     {

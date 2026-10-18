@@ -12,6 +12,7 @@ import type { Category } from '@/modules/common/interfaces/category.interface'
 import type { Payer } from '@/modules/common/interfaces/payer.interface'
 import type { Template } from '@/modules/common/interfaces/template.interface'
 import type { RegisterData } from '@/modules/auth/interfaces/register.data.interface'
+import type { Expense } from '@/modules/common/interfaces/expense.interface'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 
@@ -23,6 +24,7 @@ export const useUserStore = defineStore('user', () => {
   const userCategories = ref<Category[]>([])
   const userPayers = ref<Payer[]>([])
   const userTemplates = ref<Template[]>([])
+  const userRecurringExpenses = ref<Expense[]>([])
   const activeSheetId = ref('')
   const loading = ref(false)
 
@@ -35,6 +37,7 @@ export const useUserStore = defineStore('user', () => {
       await getUserCategories()
       await getUserPayers()
       await getUserTemplates()
+      await getUserRecurringExpenses()
     } catch (error) {
       toast('Error al inicializar el usuario', {
         autoClose: 2000,
@@ -126,6 +129,26 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  async function getUserRecurringExpenses() {
+    if (!user.value) {
+      return
+    }
+    loading.value = true
+
+    try {
+      const { data } = await UserAPI.getUserRecurringExpenses(user.value?._id)
+      userRecurringExpenses.value = data
+    } catch (error) {
+      toast('Error al cargar los gastos recurrentes del usuario', {
+        autoClose: 2000,
+        type: 'error',
+      })
+      console.error(error)
+    } finally {
+      loading.value = false
+    }
+  }
+
   async function registerUser(newUserData: RegisterData) {
     loading.value = true
     try {
@@ -186,6 +209,7 @@ export const useUserStore = defineStore('user', () => {
     userCategories,
     userPayers,
     userTemplates,
+    userRecurringExpenses,
     loading,
     activeSheetId,
     registerUser,
@@ -196,6 +220,7 @@ export const useUserStore = defineStore('user', () => {
     getUserCategories,
     getUserPayers,
     getUserTemplates,
+    getUserRecurringExpenses,
     setActiveSheetId,
   }
 })

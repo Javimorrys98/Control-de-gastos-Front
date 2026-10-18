@@ -9,9 +9,12 @@ interface Props {
   categories: Category[]
   payers: Payer[]
   templates: Template[]
+  isRecurringExpenseMode?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  isRecurringExpenseMode: false,
+})
 const emits = defineEmits(['confirm', 'cancel'])
 
 onMounted(() => {
@@ -77,6 +80,10 @@ const handleSubmit = () => {
 
   // Validación de campos vacíos
   Object.keys(expenseForm.value).forEach((key) => {
+    if (props.isRecurringExpenseMode && key === 'date') {
+      return
+    }
+
     const field = expenseForm.value[key as keyof typeof expenseForm.value]
     if (field.value === '' || field.value === null) {
       field.error = 'Este campo es obligatorio.'
@@ -97,7 +104,11 @@ const handleSubmit = () => {
   // Si todo es válido, emite el evento 'confirm'
   emits(
     'confirm',
-    Object.fromEntries(Object.entries(expenseForm.value).map(([key, field]) => [key, field.value])),
+    Object.fromEntries(
+      Object.entries(expenseForm.value)
+        .filter(([key]) => !props.isRecurringExpenseMode || key !== 'date')
+        .map(([key, field]) => [key, field.value]),
+    ),
   )
 
   resetForm()
@@ -165,7 +176,7 @@ const applyTemplate = (event: Event): void => {
 
       <!-- Formulario -->
       <form id="expenseForm" @submit.prevent="handleSubmit" class="space-y-4 mt-6">
-        <div class="flex flex-col space-y-1">
+        <div v-if="!isRecurringExpenseMode" class="flex flex-col space-y-1">
           <label for="date" class="font-semibold">Fecha</label>
           <input
             v-model="expenseForm.date.value"

@@ -13,6 +13,9 @@ export default {
   getUserTemplates(userId: string) {
     return api.get(`/users/${userId}/templates`)
   },
+  getUserRecurringExpenses(userId: string) {
+    return api.get(`/users/${userId}/recurring-expenses`)
+  },
   getUserFixedExpenses(userId: string, sheetId: string) {
     return api.get(`/users/${userId}/${sheetId}/fixed-expenses`)
   },

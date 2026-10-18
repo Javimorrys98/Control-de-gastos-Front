@@ -45,6 +45,15 @@ defineEmits(['logout'])
         >
           Plantillas
         </RouterLink>
+        <RouterLink
+          :to="{ name: 'recurring-expenses' }"
+          class="h-full flex items-center hover:bg-gray-300 px-2 cursor-pointer transition-colors"
+          :class="{
+            ' font-semibold border-b-2 border-blue-600 bg-gray-300': $route.name === 'recurring-expenses',
+          }"
+        >
+          Gastos recurrentes
+        </RouterLink>
         <button
           class="cursor-pointer bg-transparent hover:bg-gray-300 transition-colors h-full w-15 flex items-center justify-center"
           @click="$emit('logout')"

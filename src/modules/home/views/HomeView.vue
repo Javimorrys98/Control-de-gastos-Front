@@ -4,6 +4,8 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useUserStore } from '@/stores/user.store'
 
 import SheetAPI from '@/api/SheetAPI'
+import ExpenseAPI from '@/api/ExpenseAPI'
+import { toast } from 'vue3-toastify'
 
 import NewSheetModal from '@/modules/home/components/NewSheetModal.vue'
 import ConfirmationModal from '../../common/components/ConfirmationModal.vue'
@@ -31,10 +33,40 @@ function handleKeyDown(e: KeyboardEvent) {
   }
 }
 
-const createSheet = async (sheetName: string) => {
-  await SheetAPI.createSheet({ name: sheetName })
-  await userStore.getUserSheets()
-  showNewSheetModal.value = false
+interface SheetCreationData {
+  name: string
+  recurringExpenses: Array<{
+    date: string
+    description: string
+    category: string
+    amount: number
+    payer: string
+    type: string
+  }>
+}
+
+const createSheet = async ({ name, recurringExpenses }: SheetCreationData) => {
+  try {
+    const { data } = await SheetAPI.createSheet({ name })
+    if (!data.sheetId && recurringExpenses.length) {
+      throw new Error('La respuesta de creación de hoja no contiene el identificador.')
+    }
+
+    await Promise.all(
+      recurringExpenses.map((expense) =>
+        ExpenseAPI.createExpense({ ...expense, sheetId: data.sheetId }),
+      ),
+    )
+
+    await userStore.getUserSheets()
+    showNewSheetModal.value = false
+  } catch (error) {
+    toast('Error al crear la hoja o sus gastos recurrentes', {
+      autoClose: 2000,
+      type: 'error',
+    })
+    console.error(error)
+  }
 }
 
 const openRemoveConfirmation = (sheetId: string) => {

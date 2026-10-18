@@ -13,4 +13,10 @@ export default {
   deleteIncome(sheetId: string, incomeId: string) {
     return api.delete(`/incomes/${sheetId}/${incomeId}`)
   },
+  createRecurringExpense(data: object) {
+    return api.post('/recurring-expenses', data)
+  },
+  deleteRecurringExpense(recurringExpenseId: string) {
+    return api.patch(`/recurring-expenses/${recurringExpenseId}/remove`)
+  },
 }
